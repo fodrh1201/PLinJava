@@ -215,6 +215,8 @@ public class GameManager extends GameDef implements OffLine {
 						return false;
 				}
 			}
+			if (!availableBlacks.contains(blackKing))
+				return true;
 			return true;
 		} else {
 			while (iterWhite.hasNext()) {
@@ -242,6 +244,8 @@ public class GameManager extends GameDef implements OffLine {
 						return false;
 				}
 			}
+			if (!availableWhites.contains(whiteKing))
+				return true;
 			return true;
 		}
 	}
@@ -254,48 +258,48 @@ public class GameManager extends GameDef implements OffLine {
 	}
 	
 	private void inputPieces() {
-		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
-		inputPiece(blackKing);
-		inputPiece(new Queen(Side.BLACK, new Pos(8, 'd')));
-		inputPiece(new Bishop(Side.BLACK, new Pos(8, 'c')));
-		inputPiece(new Bishop(Side.BLACK, new Pos(8, 'f')));
-		inputPiece(new Knight(Side.BLACK, new Pos(8, 'b')));
-		inputPiece(new Knight(Side.BLACK, new Pos(8, 'g')));
-		inputPiece(new Rook(Side.BLACK, new Pos(8, 'a')));
-		inputPiece(new Rook(Side.BLACK, new Pos(8, 'h')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'a')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'b')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'c')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'd')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'e')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'f')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'g')));
-		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'h')));
-		
-		whiteKing = new King(Side.WHITE, new Pos(1, 'e'));
-		inputPiece(whiteKing);
-		inputPiece(new Queen(Side.WHITE, new Pos(1, 'd')));
-		inputPiece(new Bishop(Side.WHITE, new Pos(1, 'c')));
-		inputPiece(new Bishop(Side.WHITE, new Pos(1, 'f')));
-		inputPiece(new Knight(Side.WHITE, new Pos(1, 'b')));
-		inputPiece(new Knight(Side.WHITE, new Pos(1, 'g')));
-		inputPiece(new Rook(Side.WHITE, new Pos(1, 'a')));
-		inputPiece(new Rook(Side.WHITE, new Pos(1, 'h')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'a')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'b')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'c')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'd')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'e')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'f')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'g')));
-		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'h')));
-		
-//		blackKing = new King(Side.BLACK, new Pos(3,'h'));
+//		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
 //		inputPiece(blackKing);
-//		whiteKing = new King(Side.WHITE, new Pos(1,'h'));
+//		inputPiece(new Queen(Side.BLACK, new Pos(8, 'd')));
+//		inputPiece(new Bishop(Side.BLACK, new Pos(8, 'c')));
+//		inputPiece(new Bishop(Side.BLACK, new Pos(8, 'f')));
+//		inputPiece(new Knight(Side.BLACK, new Pos(8, 'b')));
+//		inputPiece(new Knight(Side.BLACK, new Pos(8, 'g')));
+//		inputPiece(new Rook(Side.BLACK, new Pos(8, 'a')));
+//		inputPiece(new Rook(Side.BLACK, new Pos(8, 'h')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'a')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'b')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'c')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'd')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'e')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'f')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'g')));
+//		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'h')));
+//		
+//		whiteKing = new King(Side.WHITE, new Pos(1, 'e'));
 //		inputPiece(whiteKing);
-//		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'e')));
-//		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'f')));
+//		inputPiece(new Queen(Side.WHITE, new Pos(1, 'd')));
+//		inputPiece(new Bishop(Side.WHITE, new Pos(1, 'c')));
+//		inputPiece(new Bishop(Side.WHITE, new Pos(1, 'f')));
+//		inputPiece(new Knight(Side.WHITE, new Pos(1, 'b')));
+//		inputPiece(new Knight(Side.WHITE, new Pos(1, 'g')));
+//		inputPiece(new Rook(Side.WHITE, new Pos(1, 'a')));
+//		inputPiece(new Rook(Side.WHITE, new Pos(1, 'h')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'a')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'b')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'c')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'd')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'e')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'f')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'g')));
+//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'h')));
+		
+		blackKing = new King(Side.BLACK, new Pos(3,'h'));
+		inputPiece(blackKing);
+		whiteKing = new King(Side.WHITE, new Pos(1,'h'));
+		inputPiece(whiteKing);
+		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'e')));
+		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'f')));
 		
 //		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
 //		inputPiece(blackKing);
