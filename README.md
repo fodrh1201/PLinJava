@@ -1,4 +1,6 @@
 GameDef 클래스에서 게임 룰과 관련된 부분이 정의 되어 있습니다.
+GameDef와 다른 Interface들을 조합하여, 나중에 NetworkGameManager, AI 등으로 확장 가능성을 염두해두었습니다.
+게임 로직의 대부분은 GameDef에 있습니다.
 
 Console 창에 나오는 B는 black을, W는 white를 의미하며,
 K, Q, B, N, R, P는 각각 킹, 퀸, 비숍, 나이트, 룩, 폰을 의미.
