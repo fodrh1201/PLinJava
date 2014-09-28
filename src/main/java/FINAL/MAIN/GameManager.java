@@ -1,4 +1,4 @@
-package FINAL.NewChess;
+package FINAL.MAIN;
 
 
 import Etc.Pos;
