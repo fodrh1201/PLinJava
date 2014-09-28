@@ -70,7 +70,7 @@ public class GameManager extends GameDef implements OffLine {
 	private void move(Piece chosen, Pos pastPos, Pos goal) {
 		deletePiece(goal);
 		chosen.move(goal);
-		//enPassant(chosen, pastPos);
+		enPassant(chosen, pastPos);
 		castling(chosen, goal);
 		renewalBoard();
 		calculPiecePos();
@@ -89,8 +89,10 @@ public class GameManager extends GameDef implements OffLine {
 
 	private void deletePiece(Pos pos) {
 		Piece enemyPiece = board.getPiece(pos);
-		if (enemyPiece == null)
+		if (enemyPiece == null) {
+			deletedPieces.add(null);
 			return;
+		}
 		deletedPieces.add(enemyPiece);
 		if (turn == Side.BLACK) {
 			availableWhites.remove(enemyPiece);
