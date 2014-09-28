@@ -221,7 +221,7 @@ public abstract class GameDef {
 		board.setPiece(piece);
 	}
 
-	protected void inputPieces() {
+	protected void inputPiecesDef() {
 		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
 		inputPiece(blackKing);
 		inputPiece(new Queen(Side.BLACK, new Pos(8, 'd')));
@@ -258,22 +258,27 @@ public abstract class GameDef {
 		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'g')));
 		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'h')));
 		
-//		blackKing = new King(Side.BLACK, new Pos(3,'h'));
-//		inputPiece(blackKing);
-//		whiteKing = new King(Side.WHITE, new Pos(1,'h'));
-//		inputPiece(whiteKing);
-//		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'e')));
-//		inputPiece(new Bishop(Side.BLACK, new Pos(3, 'f')));
-		
-//		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
-//		inputPiece(blackKing);
-//		whiteKing = new King(Side.WHITE, new Pos(1, 'g'));
-//		inputPiece(whiteKing);
-//		inputPiece(new Rook(Side.BLACK, new Pos(5, 'h')));
-//		inputPiece(new Queen(Side.BLACK, new Pos(1, 'h')));
-//		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'g')));
-//		inputPiece(new Rook(Side.WHITE, new Pos(1, 'f')));
-//		inputPiece(new Rook(Side.WHITE, new Pos(2, 'f')));
+	}
+	
+	protected void inputPiecesCheck() {
+		whiteKing = new King(Side.WHITE, new Pos(6,'h'));
+		inputPiece(whiteKing);
+		blackKing = new King(Side.BLACK, new Pos(8,'h'));
+		inputPiece(blackKing);
+		inputPiece(new Bishop(Side.WHITE, new Pos(6, 'e')));
+		inputPiece(new Bishop(Side.WHITE, new Pos(6, 'f')));
+	}
+	
+	protected void inputPiecesCheck2() {
+		whiteKing = new King(Side.WHITE, new Pos(1, 'e'));
+		inputPiece(whiteKing);
+		blackKing = new King(Side.BLACK, new Pos(8, 'g'));
+		inputPiece(blackKing);
+		inputPiece(new Rook(Side.WHITE, new Pos(4, 'h')));
+		inputPiece(new Queen(Side.WHITE, new Pos(8, 'h')));
+		inputPiece(new Bishop(Side.BLACK, new Pos(7, 'g')));
+		inputPiece(new Rook(Side.BLACK, new Pos(8, 'f')));
+		inputPiece(new Rook(Side.BLACK, new Pos(7, 'f')));
 	}
 	
 	public void printBoard() {

@@ -23,17 +23,20 @@ public class User extends GameDef implements Player {
 		int row = 0;
 		
 		try {
+			System.out.print("행: ");
 			row = scanner.nextInt();
 		} catch (InputMismatchException e) {
 			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
 		}
-		
+		System.out.print("열: ");
 		String input = scanner.next();
 		char col = input.charAt(0);
 		return new Pos(row, col);
 	}
 
 	public Piece choose() {
+		System.out.println();
+		System.out.println(side + "턴, Piece를 선택하겠습니다.");
 		Pos choose = input();
 		while (!isChoosable(choose)) {
 			choose = input();
@@ -47,7 +50,9 @@ public class User extends GameDef implements Player {
 		Piece target = chosen;
 		if (target == null)
 			return null;
+		System.out.println("움직을 곳을 선택하겠습니다.");
 		Pos goal = input();
+		
 		while (!isMovable(goal, target)) {
 			System.out.println(goal);
 			goal = input();
