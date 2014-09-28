@@ -1,6 +1,7 @@
 package FINAL.NewChess;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Etc.Pos;
@@ -19,7 +20,14 @@ public class User extends GameDef implements Player {
 	
 	private Pos input() {
 		System.out.println("행과 열을 입력하세요.");
-		int row = scanner.nextInt();
+		int row = 0;
+		
+		try {
+			row = scanner.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+		}
+		
 		String input = scanner.next();
 		char col = input.charAt(0);
 		return new Pos(row, col);
