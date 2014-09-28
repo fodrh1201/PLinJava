@@ -1,0 +1,16 @@
+package Etc;
+
+public enum Direction {
+	EAST,
+	WEST,
+	SOUTH,
+	NORTH,
+	NORTHEAST,
+	EASTNORTH,
+	EASTSOUTH,
+	SOUTHEAST,
+	SOUTHWEST,
+	WESTSOUTH,
+	WESTNORTH,
+	NORTHWEST
+}
