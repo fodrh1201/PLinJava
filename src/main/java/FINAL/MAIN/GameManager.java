@@ -20,7 +20,8 @@ public class GameManager extends GameDef implements OffLine {
 	/*
 	 * inputPieceDef(); -> 평범한 게임 배치.
 	 * inputPieceCheck(); -> 체크메이트 되는 상황.
-	 * inputPieceCheck(); -> 체크 상황이지만 체크메이트는 아닌 상황.
+	 * inputPieceCheck2(); -> 체크 상황이지만 다른 Piece의 도움으로 체크메이트는 아닌 상황.
+	 * inputPieceCastling(); -> 킹 캐슬링 테스트 상황.
 	 * 
 	 * 킹을 먹거나, 모든 경우를 따져봐도 체크를 벗어날 수 없으면 게임이 종료됩니다.
 	 * (체크메이트일 경우 게임 종료.)
@@ -48,6 +49,9 @@ public class GameManager extends GameDef implements OffLine {
 				Pos pastPos = chosen.getPos();
 				Pos goal = black.moveTo();
 				move(chosen, pastPos, goal);
+				castling(chosen, goal);
+				renewalBoard();
+				calculPiecePos();
 				printBoard();
 				turnChange();
 			} else {
@@ -55,6 +59,9 @@ public class GameManager extends GameDef implements OffLine {
 				Pos pastPos = chosen.getPos();
 				Pos goal = white.moveTo();
 				move(chosen, pastPos, goal);
+				castling(chosen, goal);
+				renewalBoard();
+				calculPiecePos();
 				printBoard();
 				turnChange();
 			}

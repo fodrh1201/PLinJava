@@ -22,9 +22,6 @@ public abstract class GameDef {
 		deletePiece(goal);
 		chosen.move(goal);
 		enPassant(chosen, pastPos);
-		castling(chosen, goal);
-		renewalBoard();
-		calculPiecePos();
 	}
 
 	protected void calculPiecePos() {
@@ -61,6 +58,36 @@ public abstract class GameDef {
 		return board.terrain(pos);
 	}
 	
+	protected boolean check() {
+		Iterator<Piece> iterBlack = availableBlacks.iterator();
+		Iterator<Piece> iterWhite = availableWhites.iterator();
+		if (turn == Side.BLACK) {
+			Pos kingPos = blackKing.getPos();
+			boolean isAllWhiteUnAttachable = true;
+			while (iterWhite.hasNext()) {
+				if (iterWhite.next().isAttachable(kingPos)) {
+					isAllWhiteUnAttachable = false;
+					break;
+				}
+			}
+			if (isAllWhiteUnAttachable)
+				return false;
+			return true;
+		} else {
+			Pos kingPos = whiteKing.getPos();
+			boolean isAllBlackUnAttachable = true;
+			while (iterBlack.hasNext()) {
+				if (iterBlack.next().isAttachable(kingPos)) {
+					isAllBlackUnAttachable = false;
+					break;
+				}
+			}
+			if (isAllBlackUnAttachable)
+				return false;
+			return true;
+		}
+	}
+	
 	protected Side whoIsWinner() {
 		if (turn == Side.BLACK)
 			return Side.WHITE;
@@ -68,7 +95,7 @@ public abstract class GameDef {
 			return Side.BLACK;
 	}
 
-	private void turnBack() {
+	protected void turnBack() {
 		Piece turnBack = deletedPieces.pollLast();
 		if (turnBack == null)
 			return;
@@ -79,7 +106,7 @@ public abstract class GameDef {
 			availableWhites.add(turnBack);
 	}
 
-	private void renewalBoard() {
+	protected void renewalBoard() {
 		board.reset();
 		Iterator<Piece> iterBlack = availableBlacks.iterator();
 		Iterator<Piece> iterWhite = availableWhites.iterator();
@@ -89,7 +116,7 @@ public abstract class GameDef {
 			board.setPiece(iterWhite.next());
 	}
 
-	private void castling(Piece piece, Pos pos) {
+	protected void castling(Piece piece, Pos pos) {
 		Side side = piece.getSide();
 		PieceType type = piece.getType();
 		int count = piece.getMoveCount();
@@ -161,6 +188,8 @@ public abstract class GameDef {
 					boolean isAllWhiteUnAttachable = true;
 					Pos to = legalPositions.get(i);
 					move(shieldPiece, pastPos, to);
+					renewalBoard();
+					calculPiecePos();
 					Pos kingPos = blackKing.getPos();
 					iterWhite = availableWhites.iterator();
 					while (iterWhite.hasNext()) {
@@ -190,6 +219,8 @@ public abstract class GameDef {
 					boolean isAllBlackUnAttachable = true;
 					Pos to = legalPositions.get(i);
 					move(shieldPiece, pastPos, to);
+					renewalBoard();
+					calculPiecePos();
 					Pos kingPos = whiteKing.getPos();
 					iterBlack = availableBlacks.iterator();
 					while (iterBlack.hasNext()) {
@@ -281,6 +312,32 @@ public abstract class GameDef {
 		inputPiece(new Rook(Side.BLACK, new Pos(7, 'f')));
 	}
 	
+	protected void inputPiecesCastling() {
+		blackKing = new King(Side.BLACK, new Pos(8, 'e'));
+		inputPiece(blackKing);
+		inputPiece(new Rook(Side.BLACK, new Pos(8, 'h')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'a')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'b')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'c')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'd')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'e')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'f')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'g')));
+		inputPiece(new Pawn(Side.BLACK, new Pos(7, 'h')));
+		
+		whiteKing = new King(Side.WHITE, new Pos(1, 'e'));
+		inputPiece(whiteKing);
+		inputPiece(new Rook(Side.WHITE, new Pos(1, 'a')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'a')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'b')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'c')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'd')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'e')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'f')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'g')));
+		inputPiece(new Pawn(Side.WHITE, new Pos(2, 'h')));
+	}
+	
 	public void printBoard() {
 		board.print();
 	}
@@ -291,7 +348,7 @@ public abstract class GameDef {
 		protected ArrayList<Pos> neighbors = new ArrayList<Pos>();
 		protected ArrayList<Pos> legalNeighbors = new ArrayList<Pos>();
 		protected LinkedList<Pos> history = new LinkedList<Pos>();
-		protected int moveCount;
+		protected int moveCount = 0;
 		protected Pos currentPos;
 		
 		public abstract Piece clone();
@@ -304,7 +361,6 @@ public abstract class GameDef {
 			this.side = side;
 			makeNeighbors();
 			makeLegalNeighbors();
-			moveCount = 0;
 		}
 		
 		protected boolean terrain(Pos pos) {
@@ -337,6 +393,7 @@ public abstract class GameDef {
 		
 		public void turnBack() {
 			currentPos = history.pollLast();
+			moveCount--;
 		}
 		
 		public Side getSide() {
